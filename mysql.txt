@@ -1,0 +1,132 @@
+CREATE DATABASE musicstore;
+USE musicstore;
+
+"create table"
+CREATE TABLE table_1
+
+"column options"
+
+CREATE TABLE users(
+id int NOT NULL AUTO_INCREMENT,
+username varchar(255) NOT NULL,
+password varchar(20) NOT NULL,
+PRIMARY KEY (id)
+);
+
+SHOW TABLES;
+
+CREATE TABLE artists(
+id INT AUTO_INCREMENT NOT NULL,
+name VARCHAR(255)NOT NULL UNIQUE,
+PRIMARY KEY(id)
+);
+
+CREATE TABLE ALBUMS(
+id INT AUTO_INCREMENT NOT NULL,
+name VARCHAR(255)NOT NULL,
+year YEAR(4),
+artist_id INT,
+PRIMARY KEY(id),
+FOREIGN KEY(artist_id)
+REFERENCES artists(id)
+);
+
+CREATE TABLE playlists(
+id INT AUTO_INCREMENT NOT NULL,
+date_created TIMESTAMP
+	DEFAULT CURRENT_TIMESTAMP,
+user_id INT,
+PRIMARY KEY(id),
+FOREIGN KEY(user_id)
+	REFERENCES users(id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+CREATE TABLE songs(
+id INT AUTO_INCREMENT NOT NULL,
+title VARCHAR(255)NOT NULL,
+length INT,
+genre VARCHAR(255),
+album_id INT,
+PRIMARY KEY(id),
+FOREIGN KEY(album_id)
+	REFERENCES albums(id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+CREATE TABLE songs_playlists(
+id INT AUTO_INCREMENT NOT NULL,
+song_id INT,
+playlist_id INT,
+PRIMARY KEY(id),
+FOREIGN KEY(song_id)
+	REFERENCES songs(id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL,
+FOREIGN KEY(playlist_id)
+	REFERENCES playlists(id)
+	ON UPDATE CASCADE
+	ON DELETE SET NULL
+);
+
+1. DROP TABLE <table name>; - delete a table 
+
+sql CRUD commands
+
+1. create
+2. retrieve
+3. update
+4. delete
+
+SELECT * from artists;
+
+SQL INSERT syntax
+
+INSERT INTO "tablename"(column1, column2, column3) VALUES (val1,val2,val3)
+
+Example: Insert data into the database
+
+INSERT INTO artists (name) VALUES ('Rivermaya'),('Psy');
+INSERT INTO albums (name, year, artist_id) VALUES ('Psy6', '2012', '2'), ('Trip', '1996', '1');
+INSERT INTO songs (title, length, genre, album_id) VALUES ('Gangnam Style', '253', 'k-pop', '1'), ('Kundiman', '234', 'OPM', '2'), ('Kisapmata', '279', 'OPM', '2');
+
+SELECT FUNCTION
+SELECT <column> , <column> from <"TABLEBA">
+SELECT title FROM songs where GENRE = 'OPM'; 
+SELECT length, title FROM songs where genre = 'opm' and length > 240;
+
+UPDATE FUNCTION
+UPDATE "table" SET column1 = newval1, column2 = newval2 WHERE column3 = val3
+Example: UPDATE songs SET length = 240 where title = 'Kundiman';
+SELECT * from songs; - check if change is successful
+
+DELETE FUNCTION
+DELETE FROM table WHERE column = val
+*column = val describe the rows to be deleted
+
+DELETE FROM songs where genre = 'opm' and length > 240;
+
+THE JOIN keyword
+SELECT <columns> FROM tablename1 JOIN tablename2 ON (join_condition) WHERE <condition>
+SELECT name, title FROM albums JOIN songs ON albums.id = songs.album_id;
+
+INSERT INTO albums (name, year) VALUES ('doobidoo', 2017);
+SELECT name,title FROM 
+
+SELECT * from albums join songs; // display albums with "songs"
+
+INSERT INTO albums (name,year,artist_id) VALUES ('doobidoo', 2017,2);
+
+
+ 
+
+
+
+
+
+
+
+
+
